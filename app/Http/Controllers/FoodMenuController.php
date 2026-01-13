@@ -7,6 +7,8 @@ use App\Models\FoodMenu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\FoodMenuLog;
+
 
 class FoodMenuController extends Controller
 {
@@ -48,14 +50,22 @@ class FoodMenuController extends Controller
             $imagePath = $request->file('image')->store('food_images','public');
         }
 
-        FoodMenu::create([
-            'name' => $request->name,
-            'type' => $request->type,
-            'description' => $request->description,
-            'price' => $request->price,
-            'image_path' => $imagePath,
-            'created_by' => Auth::id(),
-        ]);
+$foodMenu = FoodMenu::create([
+    'name' => $request->name,
+    'type' => $request->type,
+    'description' => $request->description,
+    'price' => $request->price,
+    'image_path' => $imagePath,
+    'created_by' => Auth::id(),
+]);
+
+// Log the action
+FoodMenuLog::create([
+    'user_id' => Auth::id(),
+    'food_menu_id' => $foodMenu->id,
+    'action' => 'create',
+]);
+
 
         return redirect()->route('food-menus.index')->with('success','Food menu added!');
     }
@@ -80,13 +90,21 @@ class FoodMenuController extends Controller
             $foodMenu->image_path = $request->file('image')->store('food_images','public');
         }
 
-        $foodMenu->update([
-            'name' => $request->name,
-            'type' => $request->type,
-            'description' => $request->description,
-            'price' => $request->price,
-            'image_path' => $foodMenu->image_path,
-        ]);
+$foodMenu->update([
+    'name' => $request->name,
+    'type' => $request->type,
+    'description' => $request->description,
+    'price' => $request->price,
+    'image_path' => $foodMenu->image_path,
+]);
+
+// Log the action
+FoodMenuLog::create([
+    'user_id' => Auth::id(),
+    'food_menu_id' => $foodMenu->id,
+    'action' => 'update',
+]);
+
 
         return redirect()->route('food-menus.index')->with('success','Food menu updated!');
     }
@@ -140,8 +158,18 @@ public function getData(Request $request)
 
     public function destroy($id) {
         $foodMenu = FoodMenu::findOrFail($id);
+
         if ($foodMenu->image_path) Storage::disk('public')->delete($foodMenu->image_path);
-        $foodMenu->delete();
+
+$foodMenu->delete();
+
+// Log the action
+FoodMenuLog::create([
+    'user_id' => Auth::id(),
+    'food_menu_id' => $foodMenu->id,
+    'action' => 'delete',
+]);
+
         return redirect()->route('food-menus.index')->with('success','Food menu deleted!');
     }
 }
