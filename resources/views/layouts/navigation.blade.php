@@ -18,11 +18,11 @@
     </x-nav-link>
 
 <x-nav-link :href="route('food-menus.index')" :active="request()->routeIs('food-menus.*')">
-    {{ __('Food Menus') }}
+    {{ __('Menu List') }}
 </x-nav-link>
 
 <x-nav-link :href="route('food-menus.create')" :active="request()->routeIs('food-menus.create')">
-    {{ __('Add Food') }}
+    {{ __('Add New Item') }}
 </x-nav-link>
 
 

@@ -1,59 +1,71 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+FOOD MENU MANAGEMENT SYSTEM
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+OVERVIEW:
+A Laravel 12 + PostgreSQL web application for managing food & drink menus. Includes:
+- User login & registration (Breeze for web, JWT for API)
+- CRUD operations for food menus
+- Image upload for each menu item
+- Search, filter, and sorting
+- RESTful API endpoints (JWT protected)
+- Action logging (who created/updated/deleted food menus)
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+TECH STACK:
+- Backend: Laravel 12
+- Frontend: Blade templates + jQuery DataTables (client-side)
+- Database: PostgreSQL
+- Authentication: Laravel Breeze (web), JWT (API)
+- Logging: food_menu_logs table records all CRUD actions
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+INSTALLLATIONS:
 
-## Learning Laravel
+1. Clone repo
+git clone https://github.com/amirhxil/FullStack-FoodMenuManagement-Assessment.git
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+2. Install dependencies
+composer install
+npm install
+npm run dev
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. Configure .env
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=your_db_name
+DB_USERNAME=your_db_user
+DB_PASSWORD=your_db_password
+JWT_SECRET=your_jwt_secret
 
-## Laravel Sponsors
+4. Run migrations & seed (optional for sample data)
+php artisan migrate
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+5. Run server
+php artisan serve
+Visit http://127.0.0.1:8000
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+FEATURES:
 
-## Contributing
+1. Web (Blade)
+- Dashboard: Overview
+- Food Menus:
+    - List menus (search by name, filter by type, sort by name)
+    - Add new menu with image
+    - Edit / Delete menu
+- User profile: Edit or delete account
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. API (JWT):
+- Register & Login: POST /api/register, POST /api/login
+- Protected endpoints (JWT required):
+    - GET /api/food-menus → list menus
+    - GET /api/food-menus/{id} → view menu
+    - POST /api/food-menus → create menu
+    - PUT /api/food-menus/{id} → update menu
+    - DELETE /api/food-menus/{id} → delete menu
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+3. Logging
+- Table: food_menu_logs
+- Columns: id, user_id, food_menu_id, action, created_at, updated_at
+- Purpose: Tracks which user created, updated, or deleted a food menu
+- Check logs: Open pgAdmin4 → select database → food_menu_logs table
