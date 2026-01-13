@@ -9,7 +9,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            <a href="{{ route('food_menus.create') }}" class="btn btn-success mb-3">
+            <a href="{{ route('food-menus.create') }}" class="btn btn-success mb-3">
                 Add Food
             </a>
 
@@ -61,13 +61,23 @@ $(document).ready(function(){
     ordering: false,        // disable column sort arrows
 
         ajax: {
-            url: "{{ route('food_menus.data') }}",
-            data: function(d){
+    url: "{{ route('food-menus.data') }}",
+
+
+            data: function (d) {
                 d.searchName = $('#searchName').val();
                 d.filterType = $('#filterType').val();
                 d.sortName = $('#sortName').val();
+            },
+
+            error: function (xhr) {
+                if (xhr.status === 401) {
+                    alert("Session expired. Please login again.");
+                    window.location.href = "/login";
+                }
             }
         },
+
         columns: [
             { data: 'id', name: 'id' },
             { 

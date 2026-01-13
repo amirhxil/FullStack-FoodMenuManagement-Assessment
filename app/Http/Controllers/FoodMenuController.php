@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\FoodMenu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class FoodMenuController extends Controller
 {
+
     public function index(Request $request) {
         $query = FoodMenu::query();
 
@@ -26,11 +28,11 @@ class FoodMenuController extends Controller
 
         $foodMenus = $query->paginate(10);
 
-        return view('food_menus.index', compact('foodMenus'));
+        return view('food-menus.index', compact('foodMenus'));
     }
 
     public function create() {
-        return view('food_menus.create');
+        return view('food-menus.create');
     }
 
     public function store(Request $request) {
@@ -55,12 +57,12 @@ class FoodMenuController extends Controller
             'created_by' => Auth::id(),
         ]);
 
-        return redirect()->route('food_menus.index')->with('success','Food menu added!');
+        return redirect()->route('food-menus.index')->with('success','Food menu added!');
     }
 
     public function edit($id) {
         $foodMenu = FoodMenu::findOrFail($id);
-        return view('food_menus.edit', compact('foodMenu'));
+        return view('food-menus.edit', compact('foodMenu'));
     }
 
     public function update(Request $request, $id) {
@@ -86,7 +88,7 @@ class FoodMenuController extends Controller
             'image_path' => $foodMenu->image_path,
         ]);
 
-        return redirect()->route('food_menus.index')->with('success','Food menu updated!');
+        return redirect()->route('food-menus.index')->with('success','Food menu updated!');
     }
 
 public function getData(Request $request)
@@ -140,6 +142,6 @@ public function getData(Request $request)
         $foodMenu = FoodMenu::findOrFail($id);
         if ($foodMenu->image_path) Storage::disk('public')->delete($foodMenu->image_path);
         $foodMenu->delete();
-        return redirect()->route('food_menus.index')->with('success','Food menu deleted!');
+        return redirect()->route('food-menus.index')->with('success','Food menu deleted!');
     }
 }

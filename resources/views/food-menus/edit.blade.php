@@ -19,7 +19,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('food_menus.update', $foodMenu->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('food-menus.update', $foodMenu->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -62,7 +62,7 @@
                 </div>
 
                 <button class="btn btn-primary">Update</button>
-                <a href="{{ route('food_menus.index') }}" class="btn btn-secondary">Cancel</a>
+                <a href="{{ route('food-menus.index') }}" class="btn btn-secondary">Cancel</a>
             </form>
 
         </div>

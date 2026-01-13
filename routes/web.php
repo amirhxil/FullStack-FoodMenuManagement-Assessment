@@ -1,29 +1,27 @@
 <?php
+
 use App\Http\Controllers\FoodMenuController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome'); // Breeze welcome.blade.php
 });
 
-/* AUTH ROUTES (Breeze) */
+/* Dashboard */
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+/* Protected WEB routes (session-based) */
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    // Food Menu CRUD
-    Route::get('/food-menus', [FoodMenuController::class, 'index'])->name('food_menus.index');
-    Route::get('/food-menus/create', [FoodMenuController::class, 'create'])->name('food_menus.create');
-    Route::post('/food-menus', [FoodMenuController::class, 'store'])->name('food_menus.store');
-    Route::get('/food-menus/{id}/edit', [FoodMenuController::class, 'edit'])->name('food_menus.edit');
-    Route::put('/food-menus/{id}', [FoodMenuController::class, 'update'])->name('food_menus.update');
-    Route::delete('/food-menus/{id}', [FoodMenuController::class, 'destroy'])->name('food_menus.destroy');
+    // Food Menu CRUD (Blade UI)
+    Route::resource('food-menus', FoodMenuController::class);
 
-    // DataTables
-    Route::get('/food-menus-data', [FoodMenuController::class, 'getData'])->name('food_menus.data');
+    // Optional: client-side DataTable data endpoint
+    Route::get('/food-menus-data', [FoodMenuController::class, 'getData'])
+        ->name('food-menus.data');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -32,4 +30,3 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
-

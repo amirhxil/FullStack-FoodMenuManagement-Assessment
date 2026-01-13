@@ -19,7 +19,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('food_menus.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('food-menus.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-2">
@@ -51,7 +51,7 @@
                 </div>
 
                 <button class="btn btn-success">Save</button>
-                <a href="{{ route('food_menus.index') }}" class="btn btn-secondary">Cancel</a>
+                <a href="{{ route('food-menus.index') }}" class="btn btn-secondary">Cancel</a>
             </form>
 
         </div>

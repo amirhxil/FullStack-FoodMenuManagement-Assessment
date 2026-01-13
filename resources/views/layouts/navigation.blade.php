@@ -17,13 +17,14 @@
         {{ __('Dashboard') }}
     </x-nav-link>
 
-    <x-nav-link :href="route('food_menus.index')" :active="request()->routeIs('food_menus.*')">
-        {{ __('Food Menus') }}
-    </x-nav-link>
+<x-nav-link :href="route('food-menus.index')" :active="request()->routeIs('food-menus.*')">
+    {{ __('Food Menus') }}
+</x-nav-link>
 
-    <x-nav-link :href="route('food_menus.create')" :active="request()->routeIs('food_menus.create')">
-        {{ __('Add Food') }}
-    </x-nav-link>
+<x-nav-link :href="route('food-menus.create')" :active="request()->routeIs('food-menus.create')">
+    {{ __('Add Food') }}
+</x-nav-link>
+
 
 </div>
 
@@ -84,11 +85,11 @@
         {{ __('Dashboard') }}
     </x-responsive-nav-link>
 
-    <x-responsive-nav-link :href="route('food_menus.index')" :active="request()->routeIs('food_menus.*')">
+    <x-responsive-nav-link :href="route('food-menus.index')" :active="request()->routeIs('food-menus.*')">
         {{ __('Food Menus') }}
     </x-responsive-nav-link>
 
-    <x-responsive-nav-link :href="route('food_menus.create')">
+    <x-responsive-nav-link :href="route('food-menus.create')">
         {{ __('Add Food') }}
     </x-responsive-nav-link>
 
